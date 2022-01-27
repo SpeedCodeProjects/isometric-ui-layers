@@ -1,0 +1,110 @@
+:root {
+  --gap: min(300px, 25vw);
+  --contentGap: min(100px, 15vw);
+}
+
+body {
+  margin: 0;
+}
+
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+svg {
+  height: 90%;
+}
+
+#Screen {
+  animation: layerAnimation 1s 1s ease-out, returnToPosition 1s 8s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+#AppBackground {
+  animation: fadeAnimation 1s 2s ease-out, returnToPosition 1s 7s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+#AppContent {
+  animation: layerAnimation 1s 2s ease-out, returnToPosition 1s 7s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+#LeftMenu {
+  animation: leftMenuAnimation 0.5s 3s ease-in-out,
+    returnToPosition 0.5s 6s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+#ActiveCode {
+  animation: activeCodeAnimation 0.5s 3s ease-in-out,
+    returnToPosition 0.5s 6s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+#ActiveFileMenu {
+  animation: activeFileMenuAnimation 0.5s 3.5s ease-in-out,
+    returnToPosition 0.5s 5.5s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+/* 
+Using trigonometry we can calculate the (y) value from (x) and 
+angle (A)
+
+An isometric grid has an angle of 30 degrees to the horizontal plane
+
+=> tangent(30) = y/x = y/var(--gap)
+=> y = tangent(30) * var(--gap)
+=> y = 0.57735026919 * var(--gap)
+
+*/
+
+@keyframes layerAnimation {
+  to {
+    transform: translate(
+      calc(-1 * var(--gap)),
+      calc(var(--gap) * 0.57735026919)
+    );
+  }
+}
+
+@keyframes fadeAnimation {
+  to {
+    opacity: 0.5;
+  }
+}
+
+@keyframes leftMenuAnimation {
+  to {
+    transform: translate(
+      calc(-1 * var(--contentGap)),
+      calc(-1 * var(--contentGap) * 0.57735026919)
+    );
+  }
+}
+
+@keyframes activeCodeAnimation {
+  to {
+    transform: translate(
+      var(--contentGap),
+      calc(var(--contentGap) * 0.57735026919)
+    );
+  }
+}
+
+@keyframes activeFileMenuAnimation {
+  to {
+    transform: translateY(calc(-1 * var(--contentGap)));
+  }
+}
+
+@keyframes returnToPosition {
+  to {
+    transform: translate(0px);
+    opacity: 1;
+  }
+}
